@@ -1,0 +1,38 @@
+.wrapper_book_item {
+  display: flex;
+  align-items: center;
+  padding: 0px 16px;
+  color: #333;
+  cursor: pointer;
+  min-height: 50px;
+
+  .avatar {
+    font-size: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .info {
+    flex: 1;
+    margin-left: 12px;
+    max-height: 100%;
+  }
+
+  .name {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &:hover {
+    background: rgba(22, 24, 35, 0.03);
+  }
+}
+
+a {
+  text-decoration: none;
+}
