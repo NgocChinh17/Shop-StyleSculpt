@@ -164,6 +164,7 @@ function ProductListPage() {
 
   const renderProductItems = useMemo(() => {
     return productList.data.map((item, index) => {
+      const discount = discountList.data.find((discount) => discount.id === item.discountId)
       return (
         <Col lg={6} md={8} sm={12} key={index}>
           <Link to={generatePath(ROUTES.USER.PRODUCT_DETAIL, { id: item.id })}>
@@ -218,12 +219,21 @@ function ProductListPage() {
               >
                 {item.price.toLocaleString()} VND
               </h4>
+
+              <h5
+                style={{
+                  fontSize: 12,
+                  color: "red",
+                }}
+              >
+                {discount ? discount.name : "Không có"}
+              </h5>
               <Button
                 size="large"
                 type="text"
                 style={{
-                  marginLeft: 90,
                   float: "left",
+                  marginLeft: 20,
                   fontSize: 20,
                 }}
                 onClick={() => handleAddToCart(item)}
@@ -235,7 +245,7 @@ function ProductListPage() {
         </Col>
       )
     })
-  }, [productList.data])
+  }, [productList.data, discountList.data])
 
   return (
     <S.ProductListWrapper>

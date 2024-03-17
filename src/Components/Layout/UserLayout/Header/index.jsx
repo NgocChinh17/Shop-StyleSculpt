@@ -119,7 +119,7 @@ function Header() {
           </Space>
         </div>
       ))}
-      <Link to={ROUTES.USER.CART}>View Cart</Link>
+      <Link to={ROUTES.USER.CART}>Xem Giỏ Hàng</Link>
     </div>
   )
 
@@ -193,7 +193,7 @@ function Header() {
               </S.InputSearch>
 
               <S.HeaderCart>
-                <Popover content={cartContent} title="Shopping Cart" trigger="hover">
+                <Popover content={cartContent} title="Giỏ Hàng" trigger="hover">
                   <Badge count={cartList.length} size="small">
                     <Button>
                       <Link to={ROUTES.USER.CART}>

@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from "react"
-import { useParams, Link, useNavigate } from "react-router-dom"
+import { useParams, Link, useNavigate, generatePath } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import {
   Button,
@@ -15,9 +15,19 @@ import {
   Input,
   Tabs,
 } from "antd"
-import { ShoppingCartOutlined, HeartOutlined, HeartFilled, HomeOutlined } from "@ant-design/icons"
+import {
+  ShoppingCartOutlined,
+  HeartOutlined,
+  HeartFilled,
+  HomeOutlined,
+  RightOutlined,
+  LeftOutlined,
+} from "@ant-design/icons"
 
-import { getProductDetailRequest } from "../../../../redux/slicers/product.slice"
+import {
+  getProductDetailRequest,
+  getProductListRequest,
+} from "../../../../redux/slicers/product.slice"
 import { addToCartRequest } from "../../../../redux/slicers/cart.slice"
 import { getReviewListRequest, reviewProductRequest } from "../../../../redux/slicers/review.slice"
 import {
@@ -26,6 +36,7 @@ import {
 } from "../../../../redux/slicers/favorite.slice"
 
 import { ROUTES } from "../../../../constants/routes"
+import { HOME } from "../../../../constants/paging"
 import dayjs from "dayjs"
 import * as S from "./style"
 
@@ -33,11 +44,13 @@ function ProductDetailPage() {
   const { id } = useParams()
   const [reviewForm] = Form.useForm()
   const [quantity, setQuantity] = useState(1)
+  const [visibleRange, setVisibleRange] = useState({ start: 0, end: 4 })
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const { productDetail } = useSelector((state) => state.product)
+  const { productList } = useSelector((state) => state.product)
   const { reviewList } = useSelector((state) => state.review)
   const { userInfo } = useSelector((state) => state.auth)
 
@@ -45,6 +58,15 @@ function ProductDetailPage() {
     dispatch(getProductDetailRequest({ id: id }))
     dispatch(getReviewListRequest({ productId: parseInt(id) }))
   }, [id])
+
+  useEffect(() => {
+    dispatch(
+      getProductListRequest({
+        page: 1,
+        limit: HOME,
+      })
+    )
+  }, [])
 
   const handleAddToCart = () => {
     dispatch(
@@ -207,6 +229,99 @@ function ProductDetailPage() {
     },
   ]
 
+  //slide
+  const handleScroll = (direction) => {
+    const newStart = direction === "right" ? visibleRange.start + 1 : visibleRange.start - 1
+    const newEnd = newStart + 4
+
+    if (newStart >= 0 && newEnd <= productList.data.length) {
+      setVisibleRange({ start: newStart, end: newEnd })
+    }
+  }
+  //bạn có thể thích
+  const renderProductItems = useMemo(() => {
+    const visibleProducts = productList.data.slice(visibleRange.start, visibleRange.end)
+    return (
+      <div style={{ position: "relative" }}>
+        <Row style={{ flexWrap: "nowrap", padding: "16px 0" }}>
+          {visibleProducts.map((item, index) => (
+            <Col lg={6} md={8} sm={12} key={index}>
+              <Link to={generatePath(ROUTES.USER.PRODUCT_DETAIL, { id: item.id })}>
+                <Row>
+                  <S.ProductListContainer>
+                    <img src={item.image} alt={item.name} style={{ borderRadius: 5 }} />
+                  </S.ProductListContainer>
+                </Row>
+              </Link>
+
+              <S.TitleProduct>
+                <div style={{ textAlign: "left", marginLeft: 60 }}>
+                  <div>
+                    <h3 style={{ fontWeight: 400 }}>{item.name}</h3>
+                  </div>
+
+                  <Space>
+                    <span style={{ fontWeight: 600, marginRight: 80 }}>
+                      {item.price.toLocaleString()} VND
+                    </span>
+
+                    <S.iconCarts>
+                      <Button
+                        size="large"
+                        type="text"
+                        style={{
+                          fontSize: 20,
+                        }}
+                        onClick={() => handleAddToCart(item)}
+                      >
+                        <ShoppingCartOutlined />
+                      </Button>
+                    </S.iconCarts>
+                  </Space>
+                </div>
+              </S.TitleProduct>
+            </Col>
+          ))}
+        </Row>
+
+        <S.visibleRangeScroll>
+          {visibleRange.start > 0 && (
+            <Button
+              onClick={() => handleScroll("left")}
+              type="text"
+              style={{
+                position: "absolute",
+                left: -15,
+                top: "35%",
+                fontSize: 20,
+                height: 50,
+                backgroundColor: "white",
+              }}
+            >
+              <LeftOutlined />
+            </Button>
+          )}
+          {visibleRange.end < productList.data.length && (
+            <Button
+              onClick={() => handleScroll("right")}
+              type="text"
+              style={{
+                position: "absolute",
+                right: -70,
+                top: "35%",
+                fontSize: 20,
+                height: 50,
+                backgroundColor: "white",
+              }}
+            >
+              <RightOutlined />
+            </Button>
+          )}
+        </S.visibleRangeScroll>
+      </div>
+    )
+  }, [productList.data, isFavorite, visibleRange])
+
   return (
     <S.ProductDetailWrapper>
       <Breadcrumb
@@ -265,9 +380,11 @@ function ProductDetailPage() {
                   <span>{`(${productRate ? `${productRate} sao` : "0 đánh giá"})`}</span>
                 </Space>
                 <br /> <br />
-                <div style={{ paddingBottom: 20 }}>
-                  {productDetail.data.price?.toLocaleString()} VND
-                </div>
+                <Space>
+                  <div style={{ paddingBottom: 20 }}>
+                    {productDetail.data.price?.toLocaleString()} VND
+                  </div>
+                </Space>
                 <div>Màu Sắc : {productDetail.data.colors}</div>
                 <br />
                 <button
@@ -298,11 +415,14 @@ function ProductDetailPage() {
                     <ShoppingCartOutlined />
                     Thêm Vào Giỏ
                   </Button>
-                  <Button>
-                    <Link to={ROUTES.USER.CART}>
-                      <ShoppingCartOutlined /> Tới Giỏ Hàng
-                    </Link>
-                  </Button>
+                  <div>
+                    <Button onClick={() => handleAddToCart()}>
+                      <ShoppingCartOutlined />
+                      <Link to={ROUTES.USER.CART} style={{ marginLeft: 5 }}>
+                        Mua
+                      </Link>
+                    </Button>
+                  </div>
                   <Button
                     size="large"
                     type="text"
@@ -336,6 +456,9 @@ function ProductDetailPage() {
           </Card>
         </Col>
       </Row>
+
+      <h2 style={{ marginTop: 20 }}>Có Thể Bạn Sẽ Thích</h2>
+      <S.ProductImage>{renderProductItems}</S.ProductImage>
     </S.ProductDetailWrapper>
   )
 }

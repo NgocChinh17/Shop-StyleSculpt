@@ -53,6 +53,20 @@
       "isDelete": false,
       "id": 4,
       "sex": "Nam"
+    },
+    {
+      "email": "pnc@gmail.com",
+      "password": "$2a$10$iotG3PAzEAJZsUdzPWzkkOBBg.zOAlfEptMLTxAAGhZ1y5KCkWGJ.",
+      "fullName": "Phan",
+      "role": "user",
+      "birthday": 1034841935840,
+      "phoneNumber": "0774564673",
+      "avatar": null,
+      "createdAt": 1710662609574,
+      "updatedAt": 1710662746789,
+      "isDelete": false,
+      "id": 5,
+      "sex": "Nam"
     }
   ],
   "products": [
@@ -815,6 +829,66 @@
       "updatedAt": 1710419836501,
       "isDelete": false,
       "id": 11
+    },
+    {
+      "fullName": "Chinh",
+      "email": "phanchinh17102002@gmail.com",
+      "phoneNumber": "0774564673",
+      "cityCode": "01",
+      "districtCode": "019",
+      "wardCode": "00617",
+      "address": "123adbc",
+      "paymentMethod": "cod",
+      "userId": 4,
+      "status": "pending",
+      "totalPrice": 1659000,
+      "cityName": "Thành phố Hà Nội",
+      "districtName": "Quận Bắc Từ Liêm",
+      "wardName": "Phường Cổ Nhuế 2",
+      "createdAt": 1710662458237,
+      "updatedAt": 1710662458237,
+      "isDelete": false,
+      "id": 12
+    },
+    {
+      "fullName": "Phan",
+      "email": "pnc@gmail.com",
+      "phoneNumber": "1234567890",
+      "cityCode": "48",
+      "districtCode": "497",
+      "wardCode": "20326",
+      "address": "345pnc",
+      "paymentMethod": "cod",
+      "userId": 5,
+      "status": "pending",
+      "totalPrice": 2844000,
+      "cityName": "Thành phố Đà Nẵng",
+      "districtName": "Huyện Hòa Vang",
+      "wardName": "Xã Hòa Tiến",
+      "createdAt": 1710662722501,
+      "updatedAt": 1710662722501,
+      "isDelete": false,
+      "id": 13
+    },
+    {
+      "fullName": "Phan",
+      "email": "pnc@gmail.com",
+      "phoneNumber": "1234567890",
+      "cityCode": "31",
+      "districtCode": "303",
+      "wardCode": "11299",
+      "address": "112233",
+      "paymentMethod": "cod",
+      "userId": 5,
+      "status": "pending",
+      "totalPrice": 2799000,
+      "cityName": "Thành phố Hải Phòng",
+      "districtName": "Quận Hồng Bàng",
+      "wardName": "Phường Hùng Vương",
+      "createdAt": 1710663005721,
+      "updatedAt": 1710663005721,
+      "isDelete": false,
+      "id": 14
     }
   ],
   "orderDetails": [
@@ -887,6 +961,36 @@
       "updatedAt": 1710419836712,
       "isDelete": false,
       "id": 7
+    },
+    {
+      "orderId": 12,
+      "productName": "Áo polo màu đen",
+      "price": 237000,
+      "quantity": 7,
+      "createdAt": 1710662458285,
+      "updatedAt": 1710662458285,
+      "isDelete": false,
+      "id": 8
+    },
+    {
+      "orderId": 13,
+      "productName": "Áo polo màu đen",
+      "price": 237000,
+      "quantity": 12,
+      "createdAt": 1710662722555,
+      "updatedAt": 1710662722555,
+      "isDelete": false,
+      "id": 9
+    },
+    {
+      "orderId": 14,
+      "productName": "ÁO VEST",
+      "price": 933000,
+      "quantity": 3,
+      "createdAt": 1710663005773,
+      "updatedAt": 1710663005773,
+      "isDelete": false,
+      "id": 10
     }
   ],
   "reviews": [
@@ -909,6 +1013,26 @@
       "updatedAt": 1710419782222,
       "isDelete": false,
       "id": 2
+    },
+    {
+      "rate": 4,
+      "comment": "ddepj",
+      "userId": 5,
+      "productId": 1,
+      "createdAt": 1710662677237,
+      "updatedAt": 1710662677237,
+      "isDelete": false,
+      "id": 3
+    },
+    {
+      "rate": 5,
+      "comment": "depj",
+      "userId": 5,
+      "productId": 5,
+      "createdAt": 1710662976431,
+      "updatedAt": 1710662976431,
+      "isDelete": false,
+      "id": 4
     }
   ],
   "favorites": [
@@ -929,14 +1053,6 @@
     },
     {
       "userId": 4,
-      "productId": 1,
-      "createdAt": 1710419741003,
-      "updatedAt": 1710419741003,
-      "isDelete": false,
-      "id": 3
-    },
-    {
-      "userId": 4,
       "productId": 5,
       "createdAt": 1710419775826,
       "updatedAt": 1710419775826,
@@ -949,6 +1065,71 @@
       "updatedAt": 1710420027676,
       "isDelete": false,
       "id": 5
+    },
+    {
+      "userId": 4,
+      "createdAt": 1710588268109,
+      "updatedAt": 1710588268109,
+      "isDelete": false,
+      "id": 6
+    },
+    {
+      "userId": 4,
+      "createdAt": 1710588269346,
+      "updatedAt": 1710588269346,
+      "isDelete": false,
+      "id": 7
+    },
+    {
+      "userId": 4,
+      "createdAt": 1710588269754,
+      "updatedAt": 1710588269754,
+      "isDelete": false,
+      "id": 8
+    },
+    {
+      "userId": 4,
+      "createdAt": 1710588269906,
+      "updatedAt": 1710588269906,
+      "isDelete": false,
+      "id": 9
+    },
+    {
+      "userId": 4,
+      "createdAt": 1710588270554,
+      "updatedAt": 1710588270554,
+      "isDelete": false,
+      "id": 10
+    },
+    {
+      "userId": 4,
+      "createdAt": 1710588326773,
+      "updatedAt": 1710588326773,
+      "isDelete": false,
+      "id": 11
+    },
+    {
+      "userId": 4,
+      "productId": 6,
+      "createdAt": 1710588504563,
+      "updatedAt": 1710588504563,
+      "isDelete": false,
+      "id": 15
+    },
+    {
+      "userId": 4,
+      "createdAt": 1710662519233,
+      "updatedAt": 1710662519233,
+      "isDelete": false,
+      "id": 16
+    },
+    {
+      "userId": 5,
+      "productId": 5,
+      "createdAt": 1710662967712,
+      "updatedAt": 1710662967712,
+      "isDelete": false,
+      "id": 17
     }
   ],
   "cities": [
